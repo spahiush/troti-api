@@ -48,6 +48,18 @@ const getUsers = async (req, res, next) => {
     res.json({ users })
 }
 
+const deleteUser = async (req, res, next) =>{
+    let userId = '62f2b1a3f5a50309501b0880'
+    try {
+     await User.findByIdAndDelete(userId)
+    } catch (err) {
+        // res.json({ message: error })
+        console.log(err)
+    }
+    console.log("Removed user : " + userId )
+    res.json({ message: "po u fshi" })
+}
+
 
 exports.getUsers = getUsers
-// exports.createUser = createUser
+exports.deleteUser = deleteUser
