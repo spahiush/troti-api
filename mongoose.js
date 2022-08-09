@@ -49,7 +49,8 @@ const getUsers = async (req, res, next) => {
 }
 
 const deleteUser = async (req, res, next) =>{
-    let userId = '62f2b1a3f5a50309501b0880'
+    // let userId = '62f2b1a3f5a50309501b0880'
+    let userId = req.param.id
     try {
      await User.findByIdAndDelete(userId)
     } catch (err) {
