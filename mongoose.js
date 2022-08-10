@@ -45,6 +45,37 @@ mongoose.connect(dbURL)
         res.json(user)
     }
 
+    const createUser = async (req,res,next) =>{
+        let result
+        const newUser = new User ({
+            username: req.body.username,
+            password: req.body.password,
+            notes: [
+            ]
+        })
+
+        try {
+            result = await newUser.save()
+        } catch (error) {
+            return res.json({ message: error })
+        }
+        res.json({ result })
+        }
+
+    // const updateUser = async (req, res, next) => {
+    //     const userId = req.params.id;
+    //     let user;
+    //     try {
+    //         user = await User.replaceOne
+    //         } catch(err) {
+    //             res.json({message: err})
+    //     }
+    //     res.json(user)
+    
+    // }
+
+// exports.updateUser =updateUser
+exports.createUser = createUser
 exports.getUsers = getUsers
 exports.deleteUser = deleteUser
 exports.getOneUser = getOneUser
