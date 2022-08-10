@@ -12,27 +12,39 @@ mongoose.connect(dbURL)
         console.log(err)
     })
 
-const getUsers = async (req, res, next) => {
-    let users
-    try {
-        users = await User.find()
-    } catch (error) {
-        res.json({ message: error })
+    const getOneUser = async (req, res, next) => {
+        const userId = req.params.id;
+        let user;
+        try {
+            user = await User.findById(userId)  
+            } catch(err) {
+                res.json({message: err})
+        }
+        res.json(user)
+    
     }
-    res.json({ users })
-}
 
-const deleteUser = async (req, res, next) => {
-    const userId = req.params.id;
-    let user;
-    try {
-        user = await User.findByIdAndDelete(userId)  
-        } catch(err) {
-            res.json({message: err})
+    const getUsers = async (req, res, next) => {
+        let users
+        try {
+            users = await User.find()
+        } catch (error) {
+            res.json({ message: error })
+        }
+        res.json({ users })
     }
-    res.json(user)
 
-}
+    const deleteUser = async (req, res, next) => {
+        const userId = req.params.id;
+        let user;
+        try {
+            user = await User.findByIdAndDelete(userId)  
+            } catch(err) {
+                res.json({message: err})
+        }
+        res.json(user)
+    }
 
 exports.getUsers = getUsers
 exports.deleteUser = deleteUser
+exports.getOneUser = getOneUser
