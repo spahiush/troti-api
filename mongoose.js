@@ -22,17 +22,17 @@ const getUsers = async (req, res, next) => {
     res.json({ users })
 }
 
-const deleteUser = async (req, res, next) =>{
-    let userId = req.param.id
+const deleteUser = async (req, res, next) => {
+    const userId = req.params.id;
+    let user;
     try {
-     await User.findByIdAndDelete(userId)
-    } catch (err) {
-        console.log(err)
+        user = await User.findByIdAndDelete(userId)  
+        } catch(err) {
+            res.json({message: err})
     }
-    console.log("Removed user : " + userId )
-    res.json({ message: "po u fshi" })
-}
+    res.json(user)
 
+}
 
 exports.getUsers = getUsers
 exports.deleteUser = deleteUser
